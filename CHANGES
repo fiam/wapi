@@ -1,0 +1,17 @@
+== wapi 0.2.2 - Release 2008/10/21
+
+- Changed license to MIT
+- Add support for overriding the default formatters
+- datetime objects are now formatted as per RFC2822
+    in all the formatters instead of calling str() on them.
+- Use a generator instead of a list in the YAML formatter.
+- Fix list formatting in the YAML formatter.
+- Fix a bug in the basic authentication handler which
+    caused a 500 when the user provided wrong credentials.
+
+== wapi 0.2.1 - Release 2008/09/10
+
+- Update to the new django-oauthsp API
+- Fix Decimal representation in JSON formatter
+
+== wapi 0.2 - Released 2008/08/29
