@@ -21,7 +21,7 @@
 # THE SOFTWARE.
 
 from django.utils.translation import ugettext_lazy as _
-from django.core.validators import ValidationError
+from django.forms import ValidationError
 
 from wapi.validators import get_type_validator
 from wapi.exceptions import ApiMissingParam, ApiInvalidParam

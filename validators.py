@@ -22,8 +22,7 @@
 
 import re
 
-from django.core.validators import ValidationError
-from django.core import validators
+from django.forms import ValidationError
 from django.utils.translation import ugettext_lazy, ugettext as _
 
 ALPHA_NUMERIC_RE = re.compile('\w+')
@@ -113,7 +112,10 @@ class UnicodeValidator(StringValidator):
 class AlphaNumericValidator(Validator):
     """Validates that the given value is an alphanumeric string"""
     def validate(self, value):
-        validators.isAlphaNumeric(value, None)
+        import re
+        alnum_re = re.compile(r'^\w+$')
+        if not alnum_re.search(value):
+            raise ValidationError, _("This value must contain only letters, numbers and underscores.")
         return value
 
 
@@ -130,11 +132,11 @@ class RangeValidator(Validator):
 
     def validate(self, value):
         if self.min_value is not None and value < self.min_value:
-            return ValidationError(_('This value is less than the min (%s)') \
+            raise ValidationError(_('This value is less than the min (%s)') \
                 % self.min_value)
 
         if self.max_value is not None and value > self.max_value:
-            return ValidationError(_('This value is greater than the max (%s)')\
+            raise ValidationError(_('This value is greater than the max (%s)')\
                  % self.max_value)
 
         return value
