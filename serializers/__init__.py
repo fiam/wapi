@@ -128,6 +128,12 @@ class BaseSerializer(object):
 class Serializer(BaseSerializer):
     __metaclass__ = BaseSerializerType
 
+class DictSerializer(Serializer):
+    serializes = {}.__class__
+
+    def default(self, obj, **kwargs):
+        return obj
+
 _DEFAULT_SERIALIZER = Serializer()
 
 def get_class_serializer(cls):
