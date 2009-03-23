@@ -150,14 +150,10 @@ def serialize(format, objs, method=None, out=None, **kwargs):
     fmt = get_formatter(format)(out=out)
     fmt.start()
 
-    try:
-        serialization = get_object_serialization(objs[0], method)
-    except IndexError:
+    if len(objs) == 0:
         fmt.empty()
-        fmt.end()
-        return fmt.get()
-
-    fmt.format_list([serialization.apply(obj, **kwargs) for obj in objs])
+    else:
+        fmt.format_list([get_object_serialization(objs, method).apply(obj, **kwargs) for obj in objs])
     fmt.end()
     return fmt.get()
 
